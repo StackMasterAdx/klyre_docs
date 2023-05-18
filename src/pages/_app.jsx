@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         {router.pathname === '/' ? (
-          <title>Klyre-Pay Docs</title>
+          <title>KlyrePay Docs</title>
         ) : (
           <title>{`${pageProps.title} - Protocol API Reference`}</title>
         )}
