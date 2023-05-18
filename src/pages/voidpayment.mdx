@@ -1,0 +1,158 @@
+## VoidPayment
+
+Unloads a card, no notification to the user(CH).
+
+
+<div style={{padding: '1rem', margin:'1rem', backgroundColor: 'black', color: 'white'}}>
+
+| Name                   | Required | Definition                                                                                         |
+|------------------------|----------|----------------------------------------------------------------------------------------------------|
+| CustId                 | Y        | Customer ID                                                                                        |
+| ProgramId              | Y        | Program ID                                                                                         |
+| Amount                 | Y        | Amount in cents. $1.00 is passed as 100                                                            |
+| ReasonDescription      | N        | Optional Description for funding the card. Will be linked to the transaction and available in reporting. |
+| ClaimReferenceNumber   | Y        | Claim Reference Number                                                                             |
+| ClientGroupID          | Y        | Client Group ID                                                                                    |
+
+
+</div>
+Possible Error Codes:
+<div style={{padding: '1rem', margin:'1rem', backgroundColor: 'black', color: 'white'}}>
+
+| Status Code | Transaction Description  | Description                                                                      | API           |
+|-------------|--------------------------|---------------------------------------------------------------------------------|---------------|
+| 70038       | VRX Unload - DECLINED   | The VoidPayment Failed as funds are not available on the card.                 | VoidPayment   |
+| 80040       | SQL Error               | Error Processing the SQL query                                                | Payment,VoidPayment |
+| 80000       | Unknown Error           | Connection issues with Upstream provider                                       | Payment,VoidPayment |
+| 70063       | LimitsViolation         | Incorrect limits for the program hierarchy                                     | Payment       |
+| 70062       | LimitsViolation         | Incorrect limits for the program hierarchy                                     | Payment       |
+| 70061       | LimitsViolation         | Incorrect limits for the program hierarchy                                     | Payment       |
+| 70025       | VRX Reload - DECLINED   | The card being funded is not in activate status or is suspended.                | Payment,VoidPayment |
+| 40001       | VRX Unload - DECLINED   | 40001 (Insufficient Available balance)                                        | VoidPayment   |
+| 70000       | VRX Reload - DECLINED   | Could not get data (SQL error or connection issue with upstream provider)      | Payment,VoidPayment |
+| 70022       | VRX Reload - DECLINED   | The card being funded hasn't been issued yet                                   | Payment       |
+
+</div>
+<Row>
+  <Col>
+
+    ### Authorization
+
+    <Properties>
+      <Property name="Bearer Token" type="e865a1e59daa629a8ade53bdae8ae659">
+        
+      </Property>
+    </Properties>
+
+
+    ### Header
+
+    <Properties>
+      <Property name="Content-Type " type="application/json"> </Property>
+    </Properties>
+
+    
+    ### Body
+
+    <Properties>
+      <Property name="raw" type="json">
+            <CodeGroup title="JSON">
+
+    ```json
+    {
+      "ServiceName": "VoidPayment",
+      "data": {
+          "CustId": "20230226001",
+          "ProgramId": "7311",
+          "Amount": "1",
+          "ReasonDescription": "Funding Request",
+          "ClaimReferenceNumber": "1234567890",
+          "ClientGroupID": "1234"
+      }
+    }
+    ```
+
+    </CodeGroup>
+      </Property>
+    </Properties>
+
+    
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+      ```bash {{title: 'cURL'}}
+      curl
+      --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
+      --header 'Content-Type: application/json' \
+      --header 'Authorization: Bearer e865a1e59daa629a8ade53bdae8ae659' \
+      --data '{
+          "ServiceName": "VoidPayment",
+          "data": {
+              "CustId": "20230226001",
+              "ProgramId": "7311",
+              "Amount": "1",
+              "ReasonDescription": "Funding Request",
+              "ClaimReferenceNumber": "1234567890",
+              "ClientGroupID": "1234"
+          }
+      }'
+      ```
+      ```php
+      <?php
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://YOURENDPOINT.virtualrx.co/jsonapi.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+          "ServiceName": "VoidPayment",
+          "data": {
+              "CustId": "20230226001",
+              "ProgramId": "7311",
+              "Amount": "1",
+              "ReasonDescription": "Funding Request",
+              "ClaimReferenceNumber": "1234567890",
+              "ClientGroupID": "1234"
+          }
+      }',
+        CURLOPT_HTTPHEADER => array(
+          'Content-Type: application/json',
+          'Authorization: Bearer e865a1e59daa629a8ade53bdae8ae659'
+        ),
+      ));
+      $response = curl_exec($curl);
+      curl_close($curl);
+      echo $response;
+      ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+        "ResponseDetails": {
+            "ServiceName": "Payment",
+            "SessionId": "BD6D0413-D380-94A1-B0E2-FD836C504553",
+            "StatusCode": "0",
+            "StatusName": "StatusOK",
+            "StatusDescription": "NA",
+            "ServiceDate": "2022-05-13 07:29:32",
+            "ServiceId": "BD6D0413-D380-94A1-B0E2-FD836C504553"
+        },
+        "ResponseParams": {
+            "balance_before_transaction": "2",
+            "balance_after_transaction": "1",
+            "active_holds": "0"
+        }
+    }
+    ```
+
+  </Col>
+</Row>
+
+---

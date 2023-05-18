@@ -1,0 +1,186 @@
+## CardHolderCreation
+The API performs 2 actions.
+<ol>
+<li>Sends out a verification email with one time passcode to the user(CH) requesting to visit a url and input the one time code.</li>
+<li>Once the verification is complete, the card is created in the background and another email is sent to the user(CH) within 5 minutes with the link to access the virtual card.</li>
+</ol>
+
+If you provided an incorrect email address or other information, you may trigger ProcessCardHolderCreation to Update the details and trigger another verification email.
+If the card has been created for the customer,
+you’ll receive a duplicate customer id error and in that case you can use ProcessCardHolderUpdate to update the details.
+
+<div>
+
+| Name                | Required | Definition                                                                                                                                                                                                                                         | Comments                                |
+| |-------------------| | |--------| | |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| | |---------------------------------------| |
+| ProgramId           | Y        | Program id, numbers only. Provided on deployment of a successful program                                                                                                                                                                           |                                         |
+| CustId              | Y        | Alphanumeric up to 20 digits in length                                                                                                                                                                                                             | Unique identifier for a customer in your system. All concurrent API requests will be made using this ID. |
+| Gender              | N        | Letters only, max length 1                                                                                                                                                                                                                        | M or F                                  |
+| FirstName           | Y        | Format: Alpha, 2-50 Can contain special characters such as "/", "-", space, comma, period, &amp;.                                                                                                                                               | First name of customer                   |
+| LastName            | Y        | Format: Alpha, 2-50 Can contain special characters such as "/", "-", space, comma, period, &amp;.                                                                                                                                               | Last name of Customer                    |
+| MiddleName          | N        | Format: Alpha,1 Description: Middle name char of the cardholder.                                                                                                                                                                                   | Middle name of customer                  |
+| Address1            | Y        | Format: Alphanumeric, 1-30 Can contain all special characters except "&lt;" and "&gt;".                                                                                                                                                          |                                         |
+| Address2            | N        | Format: Alphanumeric, 1-30 Can contain all special characters except "&lt;" and "&gt;".                                                                                                                                                          |                                         |
+| City                | Y        | Format: Alpha, 1-20 Can contain special characters such as "/", "-", space, comma, period, &amp;.                                                                                                                                               |                                         |
+| State               | Y        | Format: Alphanumeric, 2                                                                                                                                                                                                                            |                                         |
+| Country             | Y        | Format: ISO Country code. Two characters. Based on ISO 3166-1 alpha-2 list. http://en.wikipedia.org/wiki/ISO\_3166-1\_alpha-2                                                                                                                                              |                                         |
+| Phone               | Y        | Numeric, length of 10                                                                                                                                                                                                                              |                                         |
+| Mobile              | N        | Numeric, length of 10                                                                                                                                                                                                                              |                                         |
+| Email               | Y        | Valid email address in the format user@domain.tld.                                                                                                                                                                                                  |                                         |
+| BirthDate           | Y        | Valid DOB in YYYYMMDD format. Older than a year at least.                                                                                                                                                                                           |                                         |
+| SSN                 | Y        | Valid Social Security Number. This may not be required depending on your program requirements.                                                                                                                                                     |                                         |
+| EmailTemplate       | N        | Name of the email template. Only used if your program has multiple email templates setup.                                                                                                                                                          |                                         |
+| CareGiverFirstName  | N        | Caregiver's first name. Only valid if the program email has this variable.                                                                                                                                                                          |                                         |
+| CareGiverLastName   | N        | Caregiver's last name. Only valid if the program email has this variable.                                                                                                                                                                           |                                         | 
+</div>
+
+
+<Row>
+  <Col>
+    ### Authorization
+    <Properties>
+      <Property name="Bearer Token" type="e865a1e59daa629a8ade53bdae8ae659">
+      </Property>
+    </Properties>
+    ### Header
+
+    <Properties>
+      <Property name="Content-Type " type="application/json"> 
+      </Property>
+    </Properties>
+
+    ### Body
+    <Properties>
+      <Property name="raw" type="json">
+            <CodeGroup title="JSON">
+    ```json
+    {
+      "ServiceName": "CardHolderCreation",
+      "data": {
+          "CustId": "2022040502",
+          "ProgramId": "7954",
+          "Gender": "M",
+          "FirstName": "John",
+          "MiddleName": [],
+          "LastName": "Doe",
+          "Address1": "54321 Mosaic Way",
+          "Address2": [],
+          "City": "Boise",
+          "State": "ID",
+          "Zip": "83701",
+          "Country": "US",
+          "Phone": "7855666521",
+          "Email": "chetan@jm-experts.com",
+          "BirthDate": 19911231,
+          "SSN": 123456789,
+          "EmailTemplate": "secondary",
+          "groupNumber": "123456",
+          "memberId": "ACBDEF"
+        }
+    }
+    ```
+    </CodeGroup>
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+
+    ```bash {{ title: 'cURL' }}
+    curl
+    --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer e865a1e59daa629a8ade53bdae8ae659' \
+    --data-raw '{
+    "ServiceName": "CardHolderCreation",
+      "data": {
+          "CustId": "2022040502",
+          "ProgramId": "7954",
+          "Gender": "M",
+          "FirstName": "John",
+          "MiddleName": [],
+          "LastName": "Doe",
+          "Address1": "54321 Mosaic Way",
+          "Address2": [],
+          "City": "Boise",
+          "State": "ID",
+          "Zip": "83701",
+          "Country": "US",
+          "Phone": "7855666521",
+          "Email": "chetan@jm-experts.com",
+          "BirthDate": 19911231,
+          "SSN": 123456789,
+          "EmailTemplate": "secondary",
+          "groupNumber": "123456",
+          "memberId": "ACBDEF"
+      }
+  }'
+    ```
+      ```php
+      <?php
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://YOURENDPOINT.virtualrx.co/jsonapi.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+          "ServiceName": "CardHolderCreation",
+          "data": {
+              "CustId": "2022040502",
+              "ProgramId": "7954",
+              "Gender": "M",
+              "FirstName": "John",
+              "MiddleName": [],
+              "LastName": "Doe",
+              "Address1": "54321 Mosaic Way",
+              "Address2": [],
+              "City": "Boise",
+              "State": "ID",
+              "Zip": "83701",
+              "Country": "US",
+              "Phone": "7855666521",
+              "Email": "chetan@jm-experts.com",
+              "BirthDate": 19911231,
+              "SSN": 123456789,
+              "EmailTemplate": "secondary",
+              "groupNumber": "123456",
+              "memberId": "ACBDEF"
+          }
+      }',
+        CURLOPT_HTTPHEADER => array(
+          'Content-Type: application/json',
+          'Authorization: Bearer e865a1e59daa629a8ade53bdae8ae659'
+        ),
+      ));
+      $response = curl_exec($curl);
+      curl_close($curl);
+      echo $response;
+      ```
+    </CodeGroup>
+    ```json {{ title: 'Response' }}
+    {
+      "ResponseDetails": {
+        "ServiceName": "CardHolderCreation",
+        "SessionId": "lcz5h-41skf-5764t-4oxwn-r6fph",
+        "StatusCode": 0,
+        "StatusName": "StatusOK",
+        "StatusDescription": "NA",
+        "ServiceDate": "2022-04-06 07:56:25",
+        "ServiceId": "lcz5h-41skf-5764t-4oxwn-r6fph"
+      },
+      "ResponseParams": {
+        "VerificationEmail": "Sent",
+        "CardCreated": "false"
+      }
+    }
+    ```
+  </Col>
+</Row>
+
+
+---

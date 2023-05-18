@@ -1,0 +1,167 @@
+## GEBenefits
+
+The GEBenefitsAPI let's you validate patient's insurance eligibility validation.
+
+Since the API is not real time, the data will be returned to you via webhook, nightly reports file or via GEBenefitsStatus API.
+
+<Row>
+  <Col>
+
+    ### Authorization
+
+    <Properties>
+      <Property name="Basic Auth" type="YOUR USERNAME">
+        
+      </Property>
+     
+      <Property name="Password" type="">
+        
+      </Property>
+    </Properties>
+
+
+    ### Header
+
+    <Properties>
+      <Property name="Content-Type " type="application/json">
+        
+      </Property>
+    </Properties>
+
+    
+    ### Body
+
+    <Properties>
+      <Property name="raw" type="json">
+            <CodeGroup title="JSON">
+
+    ```json
+    {
+      "ServiceName": "GEBenefits",
+      "data": {
+          "ApiUserId": "11111",
+          "CustId": "2022040502",
+          "ProgramId": "7140",
+          "Gender": "M",
+          "FirstName": "John",
+          "MiddleName": [],
+          "LastName": "Doe",
+          "Address1": "54321 Mosaic Way",
+          "Address2": [],
+          "City": "Boise",
+          "State": "ID",
+          "Zip": "83701",
+          "Country": "US",
+          "Phone": "9999999999",
+          "Email": "testcustomer@mailinator.com",
+          "BirthDate": 19911231,
+          "SSN": 123456789,
+          "NDC": "111-111-1111"
+      }
+    }
+    ```
+
+    </CodeGroup>
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+      ```bash {{title: 'cURL'}}
+      curl
+      --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
+      --header 'Content-Type: application/json' \
+      --header 'Authorization: Basic WU9VUlVTRVJOQU1FOllPVVJQQVNTV09SRA==' \
+      --data-raw '{
+          "ServiceName": "GEBenefits",
+          "data": {
+              "ApiUserId": "11111",
+              "CustId": "2022040502",
+              "ProgramId": "7140",
+              "Gender": "M",
+              "FirstName": "John",
+              "MiddleName": [],
+              "LastName": "Doe",
+              "Address1": "54321 Mosaic Way",
+              "Address2": [],
+              "City": "Boise",
+              "State": "ID",
+              "Zip": "83701",
+              "Country": "US",
+              "Phone": "9999999999",
+              "Email": "testcustomer@mailinator.com",
+              "BirthDate": 19911231,
+              "SSN": 123456789,
+              "NDC": "111-111-1111"
+          }
+      }'
+      ```
+      ```php
+      <?php
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://YOURENDPOINT.virtualrx.co/jsonapi.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+          "ServiceName": "GEBenefits",
+          "data": {
+              "ApiUserId": "11111",
+              "CustId": "2022040502",
+              "ProgramId": "7140",
+              "Gender": "M",
+              "FirstName": "John",
+              "MiddleName": [],
+              "LastName": "Doe",
+              "Address1": "54321 Mosaic Way",
+              "Address2": [],
+              "City": "Boise",
+              "State": "ID",
+              "Zip": "83701",
+              "Country": "US",
+              "Phone": "9999999999",
+              "Email": "testcustomer@mailinator.com",
+              "BirthDate": 19911231,
+              "SSN": 123456789,
+              "NDC": "111-111-1111"
+          }
+      }',
+        CURLOPT_HTTPHEADER => array(
+          'Content-Type: application/json',
+          'Authorization: Basic WU9VUlVTRVJOQU1FOllPVVJQQVNTV09SRA=='
+        ),
+      ));
+      $response = curl_exec($curl);
+      curl_close($curl);
+      echo $response;
+      ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "ResponseDetails": {
+          "ServiceName": "GEBenefits",
+          "SessionId": "lcz5h-41skf-5764t-4oxwn-r6fph",
+          "StatusCode": 0,
+          "StatusName": "StatusOK",
+          "StatusDescription": "NA",
+          "ServiceDate": "2022-04-06 07:56:25",
+          "ServiceId": "lcz5h-41skf-5764t-4oxwn-r6fph"
+      },
+      "ResponseParams": {
+          "GeResults": null
+      }
+    }
+    ```
+
+  </Col>
+</Row>
+
+---

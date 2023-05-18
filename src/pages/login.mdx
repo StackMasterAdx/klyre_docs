@@ -1,0 +1,109 @@
+## Login
+
+Initiate a login ping to the system to verify whether the API service is up or not.
+
+
+<Row>
+  <Col>
+
+    ### Authorization
+
+    <Properties>
+      <Property name="Username" type="Your Username"></Property>
+      <Property name="Password"></Property>
+    </Properties>
+
+
+    ### Header
+
+    <Properties>
+      <Property name="Content-Type " type="application/json"> </Property>
+    </Properties>
+
+    
+    ### Body
+
+    <Properties>
+      <Property name="raw" type="json">
+            <CodeGroup title="JSON">
+
+    ```json
+    {
+      "ServiceName": "Login",
+      "data": {
+          "CustId": "2022040501"
+      }
+    }
+    ```
+
+    </CodeGroup>
+      </Property>
+    </Properties>
+
+    
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+      ``` bash {{title : 'cURL'}}
+      curl
+      --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
+      --header 'Content-Type: application/json' \
+      --header 'Authorization: Basic WU9VUlVTRVJOQU1FOllPVVJQQVNTV09SRA==' \
+      --data '{
+          "ServiceName": "Login",
+          "data": {
+              "CustId": "2022040501"
+          }
+      }'
+      ```
+      ```php
+      <?php
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://YOURENDPOINT.virtualrx.co/jsonapi.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+          "ServiceName": "Login",
+          "data": {
+              "CustId": "2022040501"
+          }
+      }
+      ',
+        CURLOPT_HTTPHEADER => array(
+          'Content-Type: application/json',
+          'Authorization: Basic WU9VUlVTRVJOQU1FOllPVVJQQVNTV09SRA=='
+        ),
+      ));
+      $response = curl_exec($curl);
+      curl_close($curl);
+      echo $response;
+      ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "ResponseDetails": {
+          "ServiceName": "Login",
+          "SessionId": "422739b5-4917-43c9-8387-974c10a507f4",
+          "StatusCode": "0",
+          "StatusName": "StatusOK",
+          "StatusDescription": "NA",
+          "ServiceDate": "2022-04-06 07:58:24",
+          "ServiceId": "422739b5-4917-43c9-8387-974c10a507f4"
+      },
+      "ResponseParams": ""
+    }
+    ```
+
+  </Col>
+</Row>
+
+---

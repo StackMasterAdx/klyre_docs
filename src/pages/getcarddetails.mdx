@@ -1,0 +1,118 @@
+## GetCardDetails
+Get Details on card including meta data and debit card info.
+
+<div style={{padding: '1rem'}}>
+| Name     | Required | Definition                                                          |
+| -------- | -------- | ------------------------------------------------------------------- |
+| CustId   | Y        | Customer ID                                                         |
+| ProgramId| Y        | Program ID                                                          |
+| IncludeCustomerInfo  | Y        | Y or N on weather you want the customer demographics including first_name, last_name and others.|
+</div>
+
+<Row>
+  <Col>
+    ### Header
+
+    <Properties>
+      <Property name="Content-Type " type="application/json"> </Property>
+    </Properties>
+
+    ### Body
+
+    <Properties>
+      <Property name="raw" type="json">
+            <CodeGroup title="JSON">
+
+    ```json
+    {
+      "ServiceName": "GetCardDetails",
+      "data": {
+          "CustId": "E7D22940-E873-4DA4-8F29-5250B1272CE1",
+          "ProgramId": "EFBF92FE-600C-499D-B561-61D47B57E16C",
+          "IncludeCustomerInfo": "Y"
+      }
+    }
+    ```
+
+    </CodeGroup>
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+      ``` bash {{ title: 'cURL'}}
+      curl
+      --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
+      --header 'Content-Type: application/json' \
+      --data '{
+          "ServiceName": "GetCardDetails",
+          "data": {
+              "CustId": "E7D22940-E873-4DA4-8F29-5250B1272CE1",
+              "ProgramId": "EFBF92FE-600C-499D-B561-61D47B57E16C",
+              "IncludeCustomerInfo": "Y"
+          }
+      }'
+      ```
+      ```php
+      <?php
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://YOURENDPOINT.virtualrx.co/jsonapi.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+          "ServiceName": "GetCardDetails",
+          "data": {
+              "CustId": "E7D22940-E873-4DA4-8F29-5250B1272CE1",
+              "ProgramId": "EFBF92FE-600C-499D-B561-61D47B57E16C",
+              "IncludeCustomerInfo": "Y"
+          }
+      }',
+        CURLOPT_HTTPHEADER => array(
+          'Content-Type: application/json'
+        ),
+      ));
+      $response = curl_exec($curl);
+      curl_close($curl);
+      echo $response;
+      ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "ResponseDetails": {
+          "ServiceName": "GetCardDetails",
+          "SessionId": "506D3B14-A83A-1418-1F9E-7BB89A86C451",
+          "StatusCode": "0",
+          "StatusName": "StatusOK",
+          "StatusDescription": "NA",
+          "ServiceDate": "2022-05-18 15:29:09",
+          "ServiceId": "506D3B14-A83A-1418-1F9E-7BB89A86C451"
+      },
+      "ResponseParams": {
+          "CustId": "E7D22940-E873-4DA4-8F29-5250B1272CE1",
+          "ProgramId": "EFBF92FE-600C-499D-B561-61D47B57E16C",
+          "groupNumber": "",
+          "memberId": "",
+          "CustomerCreated_Timestamp": "2022-05-13 07:17:12",
+          "CustomerVerified": "Y",
+          "CustomerVerified_Timestamp": "2022-05-13 07:21:46",
+          "CustomerActivated": "Y",
+          "CustomerActivated_Timestamp": "2022-05-13 07:25:04",
+          "VRXID": "2510781",
+          "CardAvailableBalance": "5"
+      }
+    }
+    ```
+
+  </Col>
+</Row>
+
+---

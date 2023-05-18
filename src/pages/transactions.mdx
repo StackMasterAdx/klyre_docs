@@ -1,0 +1,192 @@
+## Transaction
+The Transactions API let's to fetch transactions for a given card id.
+
+<div style={{padding: '1rem', margin:'1rem'}}>
+
+| Name           |Required | Definition                                                                                          |
+|----------------|----------|-----------------------------------------------------------------------------------------------------|
+| CustId         | Y        | Customer ID                                                                                         |
+| ProgramId      | Y        | Program ID                                                                                          |
+| StartDate      | N        | StartDate of when you want to fetch the transactions from                                           |
+| EndDate        | N        | EndDate of when you want to fetch the transactions to                                               |
+| TransactionType | N        | Include all the types of transactions you need, i.e. Payment, VoidPayment, Approved, Authorization, Returns (leaving blank would return all transactions) |
+| OrderBy        | N        | by default it's DESC and provides the most recent transactions first, change it to ASC to receive transactions in the ASC order.                            |
+
+
+</div>
+
+<Row>
+  <Col>
+
+     ### Authorization
+
+    <Properties>
+      <Property name="Bearer Token"></Property>
+    </Properties>
+
+
+    ### Header
+
+    <Properties>
+      <Property name="Content-Type " type="application/json"> </Property>
+    </Properties>
+
+    
+    ### Body
+
+    <Properties>
+      <Property name="raw" type="json">
+            <CodeGroup title="JSON">
+
+    ```json
+    {
+      "ServiceName": "Transactions",
+      "data": {
+          "CustId": "E7D22940-E873-4DA4-8F29-5250B1272CE1",
+          "ProgramId": "EFBF92FE-600C-499D-B561-61D47B57E16C",
+          "StartDate": "2022-05-01",
+          "EndDate": "2022-05-18",
+          "TransactionType": [
+              "Payment",
+              "VoidPayment",
+              "Declined",
+              "Approved",
+              "Authorization",
+              "Reversal"
+          ],
+          "OrderBy":"DESC"
+      }
+    }
+    ```
+    </CodeGroup>
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+      ``` bash {{ title : 'cURL'}}
+      curl
+      --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
+      --header 'Content-Type: application/json' \
+      --data '{
+          "ServiceName": "Transactions",
+          "data": {
+              "CustId": "E7D22940-E873-4DA4-8F29-5250B1272CE1",
+              "ProgramId": "EFBF92FE-600C-499D-B561-61D47B57E16C",
+              "StartDate": "2022-05-01",
+              "EndDate": "2022-05-18",
+              "TransactionType": [
+                  "Payment",
+                  "VoidPayment",
+                  "Declined",
+                  "Approved",
+                  "Authorization",
+                  "Reversal"
+              ],
+              "OrderBy":"DESC"
+          }
+      }'
+      ```
+      ```php
+      <?php
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://YOURENDPOINT.virtualrx.co/jsonapi.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+          "ServiceName": "Transactions",
+          "data": {
+              "CustId": "E7D22940-E873-4DA4-8F29-5250B1272CE1",
+              "ProgramId": "EFBF92FE-600C-499D-B561-61D47B57E16C",
+              "StartDate": "2022-05-01",
+              "EndDate": "2022-05-18",
+              "TransactionType": [
+                  "Payment",
+                  "VoidPayment",
+                  "Declined",
+                  "Approved",
+                  "Authorization",
+                  "Reversal"
+              ],
+              "OrderBy":"DESC"
+          }
+      }',
+        CURLOPT_HTTPHEADER => array(
+          'Content-Type: application/json'
+        ),
+      ));
+      $response = curl_exec($curl);
+      curl_close($curl);
+      echo $response;
+      ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "ResponseDetails": {
+          "ServiceName": "Transactions",
+          "SessionId": "13a24748-7722-45b7-9e71-61d4d802b32c",
+          "StatusCode": "0",
+          "StatusName": "StatusOK",
+          "StatusDescription": "NA",
+          "ServiceDate": "2022-05-10 08:01:19",
+          "ServiceId": "13a24748-7722-45b7-9e71-61d4d802b32c"
+      },
+      "ResponseParams": {
+          "CustId": "E7D22940-E873-4DA4-8F29-5250B1272CE1",
+          "ProgramId": "EFBF92FE-600C-499D-B561-61D47B57E16C",
+          "Count": 11,
+          "Transactions": [
+            {
+                "transaction_type": "Payment",
+                "time_stamp": "2022-12-31 23:59:59",
+                "vrx_id": "1234567",
+                "transaction_id": "67ff3398-59c0-4b86-a49b-d4eff0b274c5",
+                "amount": "10356",
+                "holds_amount": "10356",
+                "posted_balance": "0",
+                "merchant_id": "program_user_name",
+                "merchant_name": "Program Name",
+                "merchant_city": "New Jersey",
+                "merchant_state": "NJ",
+                "mcc": "1234",
+                "mcc_desc": "MCC code description",
+                "reason_code": "0",
+                "transaction_code": "XP20DS",
+                "transaction_description": "VRX Reload"
+            },
+            {
+                "transaction_type": "VodPayment",
+                "time_stamp": "2022-12-31 23:59:59",
+                "vrx_id": "1234567",
+                "transaction_id": "d4eff0b274c5-59c0-4b86-a49b-67ff3398",
+                "amount": "10356",
+                "holds_amount": "10356",
+                "posted_balance": "0",
+                "merchant_id": "program_user_name",
+                "merchant_name": "Program Name",
+                "merchant_city": "New Jersey",
+                "merchant_state": "NJ",
+                "mcc": "1234",
+                "mcc_desc": "MCC code description",
+                "reason_code": "0",
+                "transaction_code": "XP20DS",
+                "transaction_description": "VRX Reload"
+            }
+          ]
+      }
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
