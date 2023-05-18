@@ -1,5 +1,5 @@
 {
-  "homepage": "http://dev-aditya-dx.github.io/klyer-docs",
+  "homepage": "http://dev-aditya-dx.github.io/klyre-docs",
   "name": "tailwindui-protocol",
   "version": "0.1.0",
   "private": true,
@@ -44,6 +44,7 @@
   "devDependencies": {
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.2",
+    "gh-pages": "^5.0.0",
     "prettier": "^2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.6"
   }

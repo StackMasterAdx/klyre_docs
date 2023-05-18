@@ -200,7 +200,7 @@ function SmallPrint() {
       <p className="text-xs text-zinc-600 dark:text-zinc-400">
         &copy; Copyright {new Date().getFullYear()}. All rights reserved.
       </p>
-      <div className="flex gap-4">
+      {/* <div className="flex gap-4">
         <SocialLink href="#" icon={TwitterIcon}>
           Follow us on Twitter
         </SocialLink>
@@ -210,7 +210,7 @@ function SmallPrint() {
         <SocialLink href="#" icon={DiscordIcon}>
           Join our Discord server
         </SocialLink>
-      </div>
+      </div> */}
     </div>
   )
 }
