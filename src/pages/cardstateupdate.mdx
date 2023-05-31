@@ -16,7 +16,8 @@ Suspend or Unsuspend the card based on the request params.
     ### Authorization
 
     <Properties>
-      <Property name="Basic Auth"></Property>
+      <Property name="Bearer Token" type="e865a1e59daa629a8ade53bdae8ae659">
+      </Property>
     </Properties>
 
 
@@ -53,7 +54,7 @@ Suspend or Unsuspend the card based on the request params.
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+    <CodeGroup statusCode="200 OK" title="Request" tag="POST"  label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
       ``` bash {{ title : 'cURL'}}
       curl --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
       --header 'Content-Type: application/json' \

@@ -133,7 +133,7 @@ function CodePanel({ tag, label, code, children }) {
   )
 }
 
-function CodeGroupHeader({ title, children, selectedIndex }) {
+function CodeGroupHeader({ title, children, StatusCode, selectedIndex }) {
   let hasTabs = Children.count(children) > 1
 
   if (!title && !hasTabs) {
@@ -143,8 +143,19 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
   return (
     <div className="flex min-h-[calc(theme(spacing.12)+1px)] flex-wrap items-start gap-x-4 border-b border-zinc-700 bg-zinc-800 px-4 dark:border-zinc-800 dark:bg-transparent">
       {title && (
-        <h3 className="mr-auto pt-3 text-xs font-semibold text-white">
-          {title}
+        <h3 className="mr-auto pt-3 text-xs font-semibold text-white flex">
+          <span>{title}</span>
+          {StatusCode !== '' && (
+            <span className='group/button ms-1 bg-white/7.5 overflow-hidden rounded-full py-1 pl-2 pr-3 text-2xs font-medium transition dark:bg-white/2.5 dark:hover:bg-white/5'>
+              <span aria-hidden="false" class="pointer-events-none flex items-center gap-0.5 text-zinc-400 transition duration-300">
+                {StatusCode}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              </span>
+            </span>
+          )}
+
         </h3>
       )}
       {hasTabs && (
@@ -154,7 +165,6 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
               className={clsx(
                 'border-b py-3 transition focus:[&:not(:focus-visible)]:outline-none',
                 childIndex === selectedIndex
-                  // ? 'border-emerald-500 text-emerald-400'
                   ? 'border-gray-100 text-gray-100'
                   : 'border-transparent text-zinc-400 hover:text-zinc-300'
               )}
@@ -252,7 +262,7 @@ function useTabGroupProps(availableLanguages) {
 
 const CodeGroupContext = createContext(false)
 
-export function CodeGroup({ children, title, ...props }) {
+export function CodeGroup({ children, title, statusCode = '', ...props }) {
   let languages = Children.map(children, (child) => getPanelTitle(child.props))
   let tabGroupProps = useTabGroupProps(languages)
   let hasTabs = Children.count(children) > 1
@@ -268,7 +278,7 @@ export function CodeGroup({ children, title, ...props }) {
         {...containerProps}
         className="not-prose my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:ring-1 dark:ring-white/10"
       >
-        <CodeGroupHeader title={title} {...headerProps}>
+        <CodeGroupHeader StatusCode={statusCode} title={title} {...headerProps}>
           {children}
         </CodeGroupHeader>
         <CodeGroupPanels {...props}>{children}</CodeGroupPanels>

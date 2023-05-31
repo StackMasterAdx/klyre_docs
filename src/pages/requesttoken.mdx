@@ -9,7 +9,7 @@ Initiate a login ping to the system to verify whether the API service is up or n
 
     <Properties>
       <Property name="Username" type="Your Username"></Property>
-      <Property name="Password"></Property>
+      <Property name="Password" type="Your Password"></Property>
     </Properties>
 
 
@@ -44,7 +44,7 @@ Initiate a login ping to the system to verify whether the API service is up or n
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+    <CodeGroup statusCode="200 OK" title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
       ``` bash {{ title : 'cURL' }}
       curl
       --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \

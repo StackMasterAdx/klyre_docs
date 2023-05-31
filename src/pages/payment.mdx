@@ -15,25 +15,7 @@ Loads/Funds a card, no notification to the user(CH).
 | ClientGroupID         | Y        | Client Group ID                                                                                  |
 
 </div>
-    <div >
-          Possible Error Codes:
-    </div>
-<div>
 
-| Status Code | Transaction Description  | Description                                                                      | API           |
-|-------------|--------------------------|---------------------------------------------------------------------------------|---------------|
-| 70038       | VRX Unload - DECLINED   | The VoidPayment Failed as funds are not available on the card.                 | VoidPayment   |
-| 80040       | SQL Error               | Error Processing the SQL query                                                | Payment,VoidPayment |
-| 80000       | Unknown Error           | Connection issues with Upstream provider                                       | Payment,VoidPayment |
-| 70063       | LimitsViolation         | Incorrect limits for the program hierarchy                                     | Payment       |
-| 70062       | LimitsViolation         | Incorrect limits for the program hierarchy                                     | Payment       |
-| 70061       | LimitsViolation         | Incorrect limits for the program hierarchy                                     | Payment       |
-| 70025       | VRX Reload - DECLINED   | The card being funded is not in activate status or is suspended.                | Payment,VoidPayment |
-| 40001       | VRX Unload - DECLINED   | 40001 (Insufficient Available balance)                                        | VoidPayment   |
-| 70000       | VRX Reload - DECLINED   | Could not get data (SQL error or connection issue with upstream provider)      | Payment,VoidPayment |
-| 70022       | VRX Reload - DECLINED   | The card being funded hasn't been issued yet                                   | Payment       |
-
-</div>
 <Row>
   <Col>
 
@@ -83,12 +65,11 @@ Loads/Funds a card, no notification to the user(CH).
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+    <CodeGroup statusCode="200 OK" title="Request" tag="POST"  label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
     ```bash {{title: 'cURL'}}
     curl
     --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
     --header 'Content-Type: application/json' \
-    --header 'HEADER123: Test' \
     --header 'Authorization: Bearer e865a1e59daa629a8ade53bdae8ae659' \
     --data '{
         "ServiceName": "Payment",
@@ -159,7 +140,27 @@ Loads/Funds a card, no notification to the user(CH).
   </Col>
 </Row>
 
+    <div >
+        ###  Possible Error Codes:
+    </div>
+<div>
+
+| Status Code | Transaction Description  | Description                                                                      | API           |
+|-------------|--------------------------|---------------------------------------------------------------------------------|---------------|
+| 70038       | VRX Unload - DECLINED   | The VoidPayment Failed as funds are not available on the card.                 | VoidPayment   |
+| 80040       | SQL Error               | Error Processing the SQL query                                                | Payment,VoidPayment |
+| 80000       | Unknown Error           | Connection issues with Upstream provider                                       | Payment,VoidPayment |
+| 70063       | LimitsViolation         | Incorrect limits for the program hierarchy                                     | Payment       |
+| 70062       | LimitsViolation         | Incorrect limits for the program hierarchy                                     | Payment       |
+| 70061       | LimitsViolation         | Incorrect limits for the program hierarchy                                     | Payment       |
+| 70025       | VRX Reload - DECLINED   | The card being funded is not in activate status or is suspended.                | Payment,VoidPayment |
+| 40001       | VRX Unload - DECLINED   | 40001 (Insufficient Available balance)                                        | VoidPayment   |
+| 70000       | VRX Reload - DECLINED   | Could not get data (SQL error or connection issue with upstream provider)      | Payment,VoidPayment |
+| 70022       | VRX Reload - DECLINED   | The card being funded hasn't been issued yet                                   | Payment       |
+
+</div>
 ---
+
 <div style={{display : 'none'}}>
 # Payment
 </div>

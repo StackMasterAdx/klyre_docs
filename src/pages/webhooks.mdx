@@ -1,172 +1,235 @@
-export const description =
-  'In this guide, we will look at how to register and consume webhooks to integrate your app with Protocol.'
+# WEBHOOKS EVENTS
 
-# Webhooks
+─
+KLYRE PAYMENTS
+252 NASSAU STREET, FL2
+PRINCETON, NJ 08542
 
-In this guide, we will look at how to register and consume webhooks to integrate your app with Protocol. With webhooks, your app can know when something happens in Protocol, such as someone sending a message or adding a contact. {{ className: 'lead' }}
+## Overview
+The document provides an overview of the possible customer interaction/events that happens within the klyrepay system and can be reported via webhooks.
 
-## Registering webhooks
+## Support
+For any technical support please contact support@copaybenefits.com
 
-To register a new webhook, you need to have a URL in your app that Protocol can call. You can configure a new webhook from the Protocol dashboard under [API settings](#). Give your webhook a name, pick the [events](#event-types) you want to listen for, and add your URL.
+### Events are categorized in two categories (financial and non-financial)
 
-Now, whenever something of interest happens in your app, a webhook is fired off by Protocol. In the next section, we'll look at how to consume webhooks.
+## Non-Financial Events
+Events that don’t report any financial activity or generated interactions with or around the patient.
 
-## Consuming webhooks
+** denotes repetitive events.
 
-When your app receives a webhook request from Protocol, check the `type` attribute to see what event caused it. The first part of the event type will tell you the payload type, e.g., a conversation, message, etc.
+| Event Name                  | Description                                                                                                              |
+|-----------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| CardCreated                 | Notification whenever a new patient record is created. This is just a return of the ProcessCardHolderCreation API.       |
+| VerificationPageViewed      | Notification whenever the verification page is viewed.                                                                   |
+| UserCardVerified            | Notification whenever a patient verified their email address.**                                                         |
+| UserCardVerificationFailed  | Notification whenever a patient fails email verification due to invalid OTP.**                                         |
+| ActivationPageViewed        | Notification whenever the activation page is viewed.                                                                     |
+| UserCardActivated           | Notification whenever a patient activates their card.**                                                                  |
+| UserCardActivationFailed    | Notification whenever a patient fails Card Activation (i.e. because of invalid combination of email, lastname & debit card) and this is helpful for the call center agents to assist patients in looking up the debit card and providing correct information.** |
+| CardSuspended               | Notification whenever a patient card is suspended.**                                                                     |
+| CardUnSuspended             | Notification whenever a patient card is unsuspended.**                                                                   |
+| ReplacementDebitCardCreated | Notification whenever a Replacement debit card is available on the patient account (i.e. This would only appear after a new debit card was requested using the ReplaceDebitCard API). |
 
-```json {{ title: 'Example webhook payload' }}
+## Financial Events
+
+| Event Name | Description                                                                                                                                                                                                                                                                |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Transaction| Whenever a Financial transaction on a card happens it will be reported with additional information related to the transaction. This can include things like the amount of the transaction, the merchant where the transaction took place, the date and time of the transaction, and more. |
+
+
+## JSON Examples
+Here are JSON examples for all the events listed above.
+
+```json {{ title: 'CardCreated' }}
 {
-  "id": "a056V7R7NmNRjl70",
-  "type": "conversation.updated",
-  "payload": {
-    "id": "WAz8eIbvDR60rouK"
-    // ...
-  }
+  "header": {
+    "event_name": "CardCreated",
+    "CustId": "ABC-123-489",
+    "time_stamp": "2022-12-31 23:59:59"
+  },
+  "data": {}
 }
 ```
-
-In the example above, a conversation was `updated`, and the payload type is a `conversation`.
-
-<div className="not-prose">
-  <Button
-    href="#event-types"
-    variant="text"
-    arrow="right"
-    children="See all event types"
-  />
-</div>
-
----
-
-## Event types
-
-<Row>
-  <Col>
-
-    <Properties>
-      <Property name="contact.created">
-        A new contact was created.
-      </Property>
-      <Property name="contact.updated">
-        An existing contact was updated.
-      </Property>
-      <Property name="contact.deleted">
-        A contact was successfully deleted.
-      </Property>
-      <Property name="conversation.created">
-        A new conversation was created.
-      </Property>
-      <Property name="conversation.updated">
-        An existing conversation was updated.
-      </Property>
-      <Property name="conversation.deleted">
-        A conversation was successfully deleted.
-      </Property>
-      <Property name="message.created">
-        A new message was created.
-      </Property>
-      <Property name="message.updated">
-        An existing message was updated.
-      </Property>
-      <Property name="message.deleted">
-        A message was successfully deleted.
-      </Property>
-      <Property name="group.created">
-        A new group was created.
-      </Property>
-      <Property name="group.updated">
-        An existing group was updated.
-      </Property>
-      <Property name="group.deleted">
-        A group was successfully deleted.
-      </Property>
-      <Property name="attachment.created">
-        A new attachment was created.
-      </Property>
-      <Property name="attachment.updated">
-        An existing attachment was updated.
-      </Property>
-      <Property name="attachment.deleted">
-        An attachment was successfully deleted.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    ```json {{ 'title': 'Example payload' }}
-    {
-      "id": "a056V7R7NmNRjl70",
-      "type": "message.updated",
-      "payload": {
-        "id": "SIuAFUNKdSYHZF2w",
-        "conversation_id": "xgQQXg3hrtjh7AvZ",
-        "contact": {
-          "id": "WAz8eIbvDR60rouK",
-          "username": "KevinMcCallister",
-          "phone_number": "1-800-759-3000",
-          "avatar_url": "https://assets.protocol.chat/avatars/kevin.jpg",
-          "last_active_at": 705103200,
-          "created_at": 692233200
-        },
-        "message": "I’m traveling with my dad. He’s at a meeting. I hate meetings.",
-        "reactions": [],
-        "attachments": [],
-        "read_at": 705103200,
-        "created_at": 692233200,
-        "updated_at": 692233200
-      }
+```json {{title: 'VerificationPageViewed'}}
+{
+  "header": {
+    "event_name": "VerificationPageViewed",
+    "CustId": "ABC-123-489",
+    "time_stamp": "2022-12-31 23:59:59"
+  },
+  "data": {}
+}
+```
+```json {{title: 'UserCardVerified'}}
+{
+  "header": {
+    "event_name": "UserCardVerified",
+    "CustId": "ABC-123-489",
+    "time_stamp": "2022-12-31 23:59:59"
+  },
+  "data": {}
+}
+```
+```json {{title: 'UserCardVerificationFailed'}}
+{
+  "header": {
+    "event_name": "UserCardVerificationFailed",
+    "CustId": "ABC-123-489",
+    "time_stamp": "2022-12-31 23:59:59"
+  },
+  "data": {}
+}
+```
+```json {{title: 'UserCardActivated'}}
+{
+  "header": {
+    "event_name": "UserCardActivated",
+    "CustId": "ABC-123-489",
+    "time_stamp": "2022-12-31 23:59:59"
+  },
+  "data": {}
+}
+```
+```json {{title: 'ActivationPageViewed'}}
+{
+  "header": {
+    "event_name": "ActivationPageViewed",
+    "CustId": "ABC-123-489",
+    "time_stamp": "2022-12-31 23:59:59"
+  },
+  "data": {}
+}
+```
+```json {{title: 'UserCardActivationFailed'}}
+{
+    "header": {
+      "eventname": "UserCardActivationFailed",
+      "CustId": "ABC-123-489",
+      "timestamp": "2022-12-31 23:59:59"
+    },
+    "data": {
+      "provided_lastname": "Jane",
+      "provided_dob": "1991-01-01",
+      "provided_email": "patientemail@provider.tld",
+      "error_code": "3",
+      "error_description": "Invalid Email Address"
     }
-    ```
-
-  </Col>
-</Row>
-
+  }
+```
+```json {{title: 'CardSuspended'}}
+{
+  "header": {
+    "event_name": "CardSuspended",
+    "CustId": "ABC-123-489",
+    "time_stamp": "2022-12-31 23:59:59"
+  },
+  "data": {}
+}
+```
+```json {{title: 'CardUnSuspended'}}
+{
+  "header": {
+    "event_name": "CardUnSuspended",
+    "CustId": "ABC-123-489",
+    "time_stamp": "2022-12-31 23:59:59"
+  },
+  "data": {}
+}
+```
+```json {{title: 'ReplacementDebitCardCreated'}}
+{
+  "header": {
+    "event_name": "ReplacementDebitCardCreated",
+    "CustId": "ABC-123-489",
+    "time_stamp": "2022-12-31 23:59:59"
+  },
+  "data": {}
+}
+```
 ---
 
-## Security
+## Transaction
+In the Transaction webhook, the tranaction_type will have the following possible values:
 
-To know for sure that a webhook was, in fact, sent by Protocol instead of a malicious actor, you can verify the request signature. Each webhook request contains a header named `x-protocol-signature`, and you can verify this signature by using your secret webhook key. The signature is an HMAC hash of the request payload hashed using your secret key. Here is an example of how to verify the signature in your app:
+- Payment
+- VoidPayment
+- Authorization
+- Approved (Settlement)
+- Declined
+- Reversal
 
-<CodeGroup title="Verifying a request">
-
-```js
-const signature = req.headers['x-protocol-signature']
-const hash = crypto.createHmac('sha256', secret).update(payload).digest('hex')
-
-if (hash === signature) {
-  // Request is verified
-} else {
-  // Request could not be verified
-}
+```json {{title: ''}}
+{
+    "header": {
+      "event_name": "Transaction",
+      "CustId": "ABC-123-489",
+      "ProgramId": "ABC-123-489",
+      "time_stamp": "2022-12-31 23:59:59"
+    },
+    "data": {
+      "transaction_type": "Payment",
+      "time_stamp": "2022-12-31 23:59:59",
+      "vrx_id": "1234567",
+      "transaction_id": "67ff3398-59c0-4b86-a49b-d4eff0b274c5",
+      "amount": "10356",
+ 	"holds_amount": "10356",
+ 	"posted_balance": "0",
+      "merchant_id": "program_user_name",
+      "merchant_name": "Program Name",
+      "merchant_city": "New Jersey",
+      "merchant_state": "NJ",
+      "mcc": "1234",
+      "mcc_desc": "MCC code description",
+      "reason_code": "0",
+      "transaction_code": "XP20DS",
+      "transaction_description": "VRX Reload"
+    }
+  }
 ```
 
-```python
-from flask import request
-import hashlib
-import hmac
+## Transaction Event Field Descriptions
 
-signature = request.headers.get("x-protocol-signature")
-hash = hmac.new(bytes(secret, "ascii"), bytes(payload, "ascii"), hashlib.sha256)
+| Field                  | Description                                                                                                     |
+| ----------------------| ---------------------------------------------------------------------------------------------------------------|
+| transaction_type       | The type of transaction, this will be one of the following: Payment, VoidPayment, Authorization, Approved, Declined, Reversal |
+| time_stamp             | Time stamp of the transaction in EST.                                                                          |
+| vrx_id                 | Internal unique debit card identifier.                                                                         |
+| transaction_id         | Internal traceable transaction ID.                                                                             |
+| amount                 | Transaction amount in cents (i.e. $1.00 = 100)                                                                 |
+| holds_amount           | Amount of open authorizations on the card.                                                                     |
+| posted_balance         | Balance of the card after the transaction.                                                                     |
+| merchant_id            | Merchant ID                                                                                                    |
+| merchant_name          | Merchant Name (or POS terminal name).                                                                          |
+| merchant_city          | City of Merchant                                                                                                |
+| merchant_state         | State of Merchant                                                                                               |
+| mcc                    | 4 digit Merchant category codes                                                                                |
+| mcc_desc               | Merchant category code description                                                                             |
+| reason_code            | Bank/processor level transaction approval/decline code.                                                        |
+| transaction_code       | VRX level transaction code. Different for all different transaction types. Authorizations and Approvals have multiple codes depending on how the transactions is done (online, phone or in person) |
+| transaction_description| Description associated with the transaction_code.                                                              |
 
-if hash.hexdigest() == signature:
-    # Request is verified
-else:
-    # Request could not be verified
-```
+## Possible Processor Error Codes
 
-```php
-$signature = $request['headers']['x-protocol-signature'];
-$hash = hash_hmac('sha256', $payload, $secret);
-
-if (hash_equals($hash, $signature)) {
-  // Request is verified
-} else {
-  // Request could not be verified
-}
-```
-
-</CodeGroup>
-
-If your generated signature matches the `x-protocol-signature` header, you can be sure that the request was truly coming from Protocol. It's essential to keep your secret webhook key safe — otherwise, you can no longer be sure that a given webhook was sent by Protocol. Don't commit your secret webhook key to GitHub!
+| Error Code | Description                                                          |
+|------------|----------------------------------------------------------------------|
+| 10011      | Empty Authentication Details.                                        |
+| 10012      | Invalid Authentication Details.                                      |
+| 10000      | Invalid API request/Invalid JSON                                     |
+| 10001      | Invalid Value for field FirstName, Provided Value Null               |
+| 10002      | Invalid Value for field LastName, Provided Value Null                |
+| 10003      | Invalid Value for field AddressLine1, Provided Value Null            |
+| 10004      | Invalid Value for field City, Provided Value Null                    |
+| 10005      | Invalid Value for field State, Provided Value Null                   |
+| 10006      | Invalid Value for field Zip, Provided Value Null                     |
+| 10007      | Invalid Value for field Phone, Provided Value Null                   |
+| 10008      | Invalid Customer Id , Data Not found                                 |
+| 10009      | Invalid Value for field Date Of Birth, Provided Value Null           |
+| 10010      | Invalid Value for field VRXID, Provided Value Null                   |
+| 10013      | Duplicate CustId, CustId must be unique                              |
+| 10014      | Invalid Value for field DocId, Provided Value Null                   |
+| 10015      | Invalid Amount                                                       |
+| 10016      | Insufficient amount to load.                                         |
+| 10017      | Card not created yet.                                                |
+| 10018      | Invalid Program ID, the provided program doesn't exist.              |
+| 10021      | No Card Issued for customer Id , Data Not found                      |

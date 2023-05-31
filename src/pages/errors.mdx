@@ -1,67 +1,203 @@
-export const description =
-  'In this guide, we will talk about what happens when something goes wrong while you work with the API.'
 
 # Errors
+<p style={{ textAlign: 'justify' }}>
+If the API may encounter errors during transactions. These errors are categorized into Content Validation Errors and Processor Errors, each provides code associated with the description of the error to help diagnose and resolve issues in the payment process.
+</p>
+## Content Validation Errors
+<p style={{ textAlign: 'justify' }}>
+Content Validation Errors occur when there are problems with the data or parameters provided in the payment request. These errors range from empty authentication details to invalid values for fields such as first name, last name, address, phone number, or invalid amounts. These errors serve as indicators for developers and users to validate and ensure the accuracy and completeness of the payment information being submitted. By addressing these errors, users can ensure the integrity of the payment data and increase the chances of successful transactions.
+</p>
+## Processor Errors
+<p style={{ textAlign: 'justify' }}>
+Processor Errors, on the other hand, relate to issues encountered during the processing of the payment request by the underlying payment processor. These errors cover a wide range of scenarios, including invalid card numbers, processing failures, authentication errors, limit violations, and various other specific error conditions. Processor Errors provide insights into the specific reason for the failure and help in troubleshooting and resolving the issue with the payment processor's support or technical team.
 
-In this guide, we will talk about what happens when something goes wrong while you work with the API. Mistakes happen, and mostly they will be yours, not ours. Let's look at some status codes and error types you might encounter. {{ className: 'lead' }}
+In both cases, it is essential to build applications with logic built around error-handling mechanisms in place to capture and process these errors. Proper error handling can include logging the error details, providing clear error messages to users, and implementing fallback or recovery strategies to minimize the impact on the payment flow. By effectively addressing and resolving these errors, businesses can ensure a smooth and reliable payment experience for their customers.
+</p>
 
-You can tell if your request was successful by checking the status code when receiving an API response. If a response comes back unsuccessful, you can use the error type and error message to figure out what has gone wrong and do some rudimentary debugging (before contacting support).
 
-<Note>
-  Before reaching out to support with an error, please be aware that 99% of all
-  reported errors are, in fact, user errors. Therefore, please carefully check
-  your code before contacting Protocol support.
-</Note>
+## Possible Content Validation Error Codes:
 
----
+| Error Code | Description                                          |
+|------------|------------------------------------------------------|
+| 10011      | Empty Authentication Details.                        |
+| 10012      | Invalid Authentication Details.                      |
+| 10000      | Invalid API request/Invalid XML                      |
+| 10001      | Invalid Value for field FirstName, Provided Value Null |
+| 10002      | Invalid Value for field LastName, Provided Value Null  |
+| 10003      | Invalid Value for field AddressLine1, Provided Value Null |
+| 10004      | Invalid Value for field City, Provided Value Null       |
+| 10005      | Invalid Value for field State, Provided Value Null      |
+| 10006      | Invalid Value for field Zip, Provided Value Null        |
+| 10007      | Invalid Value for field Phone, Provided Value Null      |
+| 10008      | Invalid Customer Id , Data Not found                    |
+| 10009      | Invalid Value for field Date Of Birth, Provided Value Null |
+| 10010      | Invalid Value for field RPID, Provided Value Null        |
+| 10013      | Duplicate CustId, CustId must be unique                  |
+| 10014      | Invalid Value for field DocId, Provided Value Null       |
+| 10015      | Invalid Amount                                           |
+| 10016      | Insufficient amount to load.                             |
+| 10017      | Card not created yet.                                    |
+| 10018      | Invalid Program ID, the provided program doesn't exist.  |
+| 10021      | No Card Issued for customer Id , Data Not found          |
 
-## Status codes
 
-Here is a list of the different categories of status codes returned by the Protocol API. Use these to understand if a request was successful.
+## Possible Processor Error Codes:
 
-<Properties>
-  <Property name="2xx">
-    A 2xx status code indicates a successful response.
-  </Property>
-  <Property name="4xx">
-    A 4xx status code indicates a client error — this means it's a _you_
-    problem.
-  </Property>
-  <Property name="5xx">
-    A 5xx status code indicates a server error — you won't be seeing these.
-  </Property>
-</Properties>
+| Error Code | Description |
+|------------|-------------|
+| 40000      | Processor error |
+| 40011      | Invalid Card Number |
+| 45004      | Error processing request message |
+| 45006      | From Card Status Change Failure |
+| 70000      | Processor error |
+| 70004      | InvalidPassword |
+| 70008      | InvalidIssuer |
+| 70009      | Invalid Issuer Active Status |
+| 70012      | ServiceNotAllowed |
+| 70016      | InvalidCardholder |
+| 70019      | CH Already Registered |
+| 70021      | Invalid Card Id |
+| 70022      | INVALID CARD ACTIVE STATUS |
+| 70025      | Invalid Status |
+| 70028      | SDO can not be decreased/ Cannot set SDO for an unlimited LAM value |
+| 70029      | Data not found (cardholder not found) |
+| 70032      | InvalidParameters |
+| 70033      | TooManyData |
+| 70037      | InvalidValidationParameter |
+| 70038      | LimitViolation |
+| 70043      | DuplicateDefinition |
+| 70044      | Could not get inventory data |
+| 70046      | AllocationImpossible |
+| 70047      | Invalid RPID location |
+| 70051      | Relationship Not Found |
+| 70052      | InvalidDataDefinition (store by term not find, PT not find) |
+| 70055      | Operation Not Supported |
+| 70056      | Product Type Not Allowed |
+| 70057      | Card Holder Not Verified |
+| 70061      | LAM Limits Violation |
+| 70062      | Exceeds Daily Load Limit |
+| 70063      | Exceeds LAB Limit |
+| 70064      | Invalid Product Type |
+| 70065      | ProgramConstraintViolation |
+| 70068      | LAM is not defined for the entity |
+| 70069      | terminal already exists |
+| 70071      | SourceAndTargetCardsIdentical |
+| 70072      | Card is not Activated |
+| 70075      | InvalidCardState |
+| 70076      | DocumentTypeNotAllowed |
+| 70077      | MaxPTVerifiedLoadAmountReached |
+| 70078      | FailedOFACCheck |
+| 70079      | MaxPTUnverifiedLoadAmountReached |
+| 70080      | CHNotVerifiedDueToPT |
+| 70081      | CHNotVerifiedDueToParameter |
+| 70082      | InvalidLaOwnerOrgValue |
+| 70083      | LaOwnerOfActiveStoresInHierarchy |
+| 70084      | RequiredActiveLaOwnerOrgForActiveStores |
+| 70085      | BankDetailsRequired |
+| 70090      | REPLACEMENT_CARD_FAILURE_DUE_TO_GET_CARD_BALANCE_FAILURE |
+| 70091      | REPLACEMENT_CARD_FAILURE_DUE_TO_SUSPEND_CARD_FAILURE |
+| 70092      | REPLACEMENT_CARD_FAILURE_DUE_TO_CARD_TO_CARD_TRANSFER_FAILURE |
+| 70093      | Replacement Card Failure Due To close Initial Card Failure |
+| 70094      | REPLACEMENT_CARD_FAILURE_DUE_TO_DDA_SWAP_FAILURE |
+| 70095      | REPLACEMENT_CARD_FAILURE_DUE_TO_INVALID_AMOUNT_IN_INITIAL_CARD |
+| 70111      | Federal Benefit Enrollment Already Exists |
+| 70112      | Invalid Cardholder Status |
+| 70113      | Invalid Card Number |
+| 70115      | Replacement Card Failure Due To InformLostStolen Initial Card Failure |
+| 70116      | Invalid Card Status |
+| 70117      | Invalid Suspend Reason |
+| 70122      | FBE DDA already exists for CardNumber2 |
+| 70144      | CardIsNotInStatusOpen |
+| 70148      | Effective Date Already Past |
+| 70149      | Invalid Effective Date |
+| 70150      | Missing OFAC Field Value |
+| 70151      | Invalid Settlement Date |
+| 70156      | Holds Parameters Conflict |
+| 70159      | Holds Retrieve Failure |
+| 70161      | Federal Benefit Enrollment Not Exist |
+| 70163      | Amount Must Be Positive |
+| 70164      | Fee Definition Already Exist |
+| 70165      | Fee Definition Not Exist |
+| 70166      | Invalid ID |
+| 70169      | Invalid Product Type Attribute |
+| 70170      | Praxell Code Already Exists |
+| 70177      | Invalid Expiration Period |
+| 70181      | Invalid Doc Type |
+| 70182      | Card To Card Transfer Failure and Card1 was reloaded |
+| 70183      | Card To Card Transfer Failure and Card1 cannot be reloaded |
+| 70184      | Load Network Not Defined |
+| 70185      | Event Not Allowed |
+| 70186      | Card Not Suspended |
+| 70187      | Invalid ACH Transaction ID |
+| 70188      | New Card Created But Card Issuer ID Definition Failed |
+| 70198      | Doc Type is not SSN |
+| 70199      | Session Not Exist |
+| 70200      | Session Already Closed |
+| 70201      | Invalid Organization |
+| 70203      | Invalid Org To Org Relation |
+| 70204      | Org To Org Relation Already Exist |
+| 70205      | User Not Allowed to Create Call Center |
+| 70206      | Issuing Unverified Card Failure |
+| 70207      | OOW Verification Not Allowed |
+| 70210      | Cardholder already verified |
+| 70211      | Reference ID Failure |
+| 70213      | Maximum Time to Answer Questions Failure |
+| 70216      | verification error |
+| 70217      | Answers verification error |
+| 70219      | Invalid Initial Card Status |
+| 70220      | Replace Card Link Is Missing |
+| 70221      | Initial Card Already Replaced |
+| 70223      | Update Cardholder Failure |
+| 70226      | Verify By Card Issuer Not Allowed |
+| 70228      | Invalid Previous Card Id |
+| 70229      | Invalid RPID Format |
+| 70230      | RPID Already Exists |
+| 70231      | Invalid DOB |
+| 70238      | Device Authentication Request Already Exist |
+| 70239      | Device Authentication Limit Reached |
+| 70240      | Device Authentication Failure Due to Multiple Authentications |
+| 70241      | Device Authentication Failure And Authentication Code Created |
+| 70242      | Device Authentication Request Already Exist For This Device |
+| 70243      | Device Authentication Data Not Found |
+| 70244      | Device Authentication Code Error |
+| 70245      | Device Authentication Details Error |
+| 70246      | Device Authentication Code Expired |
+| 70247      | Device Authentication Code Failure Retries |
+| 70248      | Device Authentication Not Found |
+| 70250      | Replacement Card Status Failure |
+| 70251      | Replacement Card Already Ordered |
+| 70252      | Invalid Replacement Card ID |
+| 70254      | Invalid Card's Bank For Operation |
+| 70255      | Replacement Card Failure Since Initial Card Not Active |
+| 70256      | Replacement Card Failure |
+| 70269      | Card Status Activation Action Failed |
+| 70271      | Bill Payment Provider Not Allowed For Product Type |
+| 70273      | Biller Not Found For BPPBillerID |
+| 70277      | PT Not Eligible For Bill Payment |
+| 70278      | Unload For Bill Payment Failure |
+| 70279      | Reload After Bill Payment Failure |
+| 70282      | File does not exist |
+| 70283      | Session Is Not Escalated |
+| 70284      | New PIN Identical to current PIN |
+| 70285      | File Already Exist For Org |
+| 70287      | New Password Identical to current Password |
+| 70289      | Org of User Param Unfit Org Param |
+| 70290      | User Does Not Exist |
+| 70291      | Invalid AML Exception ID |
+| 70292      | Organization Not Allowed For Card |
+| 70294      | Account does not exist |
+| 70304      | Card Number-ID Parameters Failure |
+| 70323      | File Cannot Be Deleted |
+| 70327      | Invalid File Content |
+| 80000      | General error (no balance back from MV) |
+| 80002      | UserMustChangePassword |
+| 80003      | Invalid Credentials |
+| 80006      | UserBlocked |
+| 80007      | OrganizationBlocked |
+| 80008      | not found organization |
+| 80029      | Data not found (Product Type not Found, BIN not Found, Couldn’t find retail pack by ID/DDA number) |
+| 80032      | InvalidParameter (Date or Time format from MW is wrong, Card Number is empty) |
+| 80204      | Non Repudiation Violated (use for WU) |
+| 80206      | LAST_INVALID_CREDENTIALS_BEFORE_BLOCKED |
+| 80210      | Could not Validate data (params) |
 
----
-
-## Error types
-
-<Row>
-  <Col>
-
-    Whenever a request is unsuccessful, the Protocol API will return an error response with an error type and message. You can use this information to understand better what has gone wrong and how to fix it. Most of the error messages are pretty helpful and actionable.
-
-    Here is a list of the two error types supported by the Protocol API — use these to understand what you have done wrong.
-
-    <Properties>
-      <Property name="api_error">
-        This means that we made an error, which is highly speculative and unlikely.
-      </Property>
-      <Property name="invalid_request">
-        This means that you made an error, which is much more likely.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col>
-
-    ```bash {{ title: "Error response" }}
-    {
-      "type": "api_error",
-      "message": "No way this is happening!?",
-      "documentation_url": "https://protocol.chat/docs/errors/api_error"
-    }
-    ```
-
-  </Col>
-</Row>
