@@ -44,7 +44,7 @@ Initiate a login ping to the system to verify whether the API service is up or n
   </Col>
   <Col sticky>
 
-    <CodeGroup statusCode="200 OK" title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+    <CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
       ``` bash {{ title : 'cURL' }}
       curl
       --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
@@ -88,7 +88,7 @@ Initiate a login ping to the system to verify whether the API service is up or n
       ```
     </CodeGroup>
 
-    ```json {{ title: 'Response' }}
+    ```json {{ title: 'Response', statusCode : '200 OK ' }}
     {
       "ResponseDetails": {
           "ServiceName": "RequestToken",

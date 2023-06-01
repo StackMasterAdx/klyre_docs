@@ -66,7 +66,7 @@ The Transactions API let's to fetch transactions for a given card id.
   </Col>
   <Col sticky>
 
-    <CodeGroup statusCode="200 OK" title="Request" tag="POST"  label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+    <CodeGroup title="Request" tag="POST"  label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
       ``` bash {{ title : 'cURL'}}
       curl
       --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
@@ -130,7 +130,7 @@ The Transactions API let's to fetch transactions for a given card id.
       ```
     </CodeGroup>
 
-    ```json {{ title: 'Response' }}
+    ```json {{ title: 'Response', statusCode : '200 OK ' }}
     {
       "ResponseDetails": {
           "ServiceName": "Transactions",
@@ -190,7 +190,6 @@ The Transactions API let's to fetch transactions for a given card id.
   </Col>
 </Row>
 
---
 <div style={{display : 'none'}}>
 # Transaction
 </div>

@@ -149,7 +149,7 @@ function CodeGroupHeader({ title, children, StatusCode, selectedIndex }) {
             <span className='group/button ms-1 bg-white/7.5 overflow-hidden rounded-full py-1 pl-2 pr-3 text-2xs font-medium transition dark:bg-white/2.5 dark:hover:bg-white/5'>
               <span aria-hidden="false" class="pointer-events-none flex items-center gap-0.5 text-zinc-400 transition duration-300">
                 {StatusCode}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5" style={{ color: "rgb(110, 231, 183)" }}>
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
               </span>

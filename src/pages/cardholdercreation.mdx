@@ -87,7 +87,7 @@ you’ll receive a duplicate customer id error and in that case you can use Proc
   
 {/* <CodeGroup title="Request"  label="https://YOURENDPOINT.virtualrx.co/jsonapi.php"> */}
 
-<CodeGroup statusCode="200 OK" title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+<CodeGroup title="Request" tag="POST" label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
     ```bash {{ title: 'cURL' }}
     curl
     --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
@@ -164,7 +164,8 @@ you’ll receive a duplicate customer id error and in that case you can use Proc
       echo $response;
       ```
     </CodeGroup>
-    ```json {{ title: 'Response' }}
+    
+    ```json {{ title: 'Response', statusCode : '200 OK' }}
     {
       "ResponseDetails": {
         "ServiceName": "CardHolderCreation",

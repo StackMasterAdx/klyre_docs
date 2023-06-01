@@ -55,7 +55,7 @@ You can query using patient ID.
   </Col>
   <Col sticky>
 
-    <CodeGroup statusCode="200 OK" title="Request" tag="POST"  label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+    <CodeGroup title="Request" tag="POST"  label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
       ```bash {{title: 'cURL'}}
       curl
       --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
@@ -100,7 +100,7 @@ You can query using patient ID.
       ```
     </CodeGroup>
 
-    ```json {{ title: 'Response' }}
+    ```json {{ title: 'Response', statusCode : '200 OK' }}
     {
       "ResponseDetails": {
           "ServiceName": "GEBenefitsStatus",

@@ -62,7 +62,7 @@ Since the API is not real time, the data will be returned to you via webhook, ni
   </Col>
   <Col sticky>
 
-    <CodeGroup statusCode="200 OK" title="Request" tag="POST"  label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
+    <CodeGroup title="Request" tag="POST"  label="https://YOURENDPOINT.virtualrx.co/jsonapi.php">
       ```bash {{title: 'cURL'}}
       curl
       --location 'https://YOURENDPOINT.virtualrx.co/jsonapi.php' \
@@ -138,7 +138,7 @@ Since the API is not real time, the data will be returned to you via webhook, ni
       ```
     </CodeGroup>
 
-    ```json {{ title: 'Response' }}
+    ```json {{ title: 'Response', statusCode : '200 OK' }}
     {
       "ResponseDetails": {
           "ServiceName": "GEBenefits",
