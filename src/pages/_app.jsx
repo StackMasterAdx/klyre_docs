@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }) {
         {router.pathname === '/' ? (
           <title>KlyrePay Docs</title>
         ) : (
-          <title>{`${pageProps.title} - Protocol API Reference`}</title>
+          <title>{`${pageProps.title} - KLYRE PAYMENTS API Reference`}</title>
         )}
         <meta name="description" content={pageProps.description} />
       </Head>
